@@ -3,7 +3,6 @@ import React from "react";
 
 import { APP_DESCRIPTION, APP_NAME, APP_VERSION } from "@/constants/app";
 import a from "@/constants/test";
-import c from "@/constants/test";
 
 import type { Metadata } from "next";
 
@@ -33,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <h1>
-          {APP_NAME} - {APP_VERSION} - {APP_DESCRIPTION} - {a} - {c}
+          {APP_NAME} - {APP_VERSION} - {APP_DESCRIPTION} - {a}
         </h1>
         {children}
       </body>
