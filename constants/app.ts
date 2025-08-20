@@ -1,0 +1,13 @@
+export const APP = 1;
+export const APP_NAME = "Stupace";
+export const APP_DESCRIPTION = "A simple app built with Next.js";
+export const APP_VERSION = "1.0.0";
+export const APP_AUTHOR = "Your Name";
+export const APP_AUTHOR_URL = "https://yourwebsite.com";
+export const APP_COPYRIGHT = `© ${new Date().getFullYear()} ${APP_AUTHOR}. All rights reserved.`;
+export const APP_LOGO = "/logo.png";
+export const APP_FAVICON = "/favicon.ico";
+export const APP_THEME_COLOR = "#ffffff";
+export const APP_DEFAULT_LOCALE = "en-US";
+export const APP_SUPPORTED_LOCALES = ["en-US", "fr-FR", "es-ES"];
+export const APP_API_URL = "https://api.stupace.com";
