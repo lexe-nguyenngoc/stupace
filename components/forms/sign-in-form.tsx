@@ -51,7 +51,10 @@ const SignInForm = () => {
           )}
         />
 
-        <Link href={ROUTES.forgotPassword} className="text-primary block text-sm hover:underline">
+        <Link
+          href={ROUTES.forgotPassword}
+          className="text-primary block text-right text-sm hover:underline"
+        >
           Forgot password?
         </Link>
 

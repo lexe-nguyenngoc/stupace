@@ -1,6 +1,7 @@
 import React from "react";
 
 import SignInForm from "@/components/forms/sign-in-form";
+import SocialsSignIn from "@/components/socials-sign-in";
 
 const SignIn = () => {
   return (
@@ -12,6 +13,14 @@ const SignIn = () => {
 
       <div className="mx-auto w-full max-w-[500px]">
         <SignInForm />
+
+        <div className="mt-4 mb-2 flex items-center">
+          <hr className="flex-1 border-gray-200 dark:border-gray-900" />
+          <span className="px-2 text-sm text-slate-500 dark:text-slate-400">Or</span>
+          <hr className="flex-1 border-gray-200 dark:border-gray-900" />
+        </div>
+
+        <SocialsSignIn />
       </div>
     </div>
   );
