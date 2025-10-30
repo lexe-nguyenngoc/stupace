@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import ThemeToggle from "@/components/theme-toggle";
-import ROUTES from "@/constants/routes";
+import { ROUTES } from "@/lib/constants";
 
 const AuthLayout = ({ children }: { readonly children: React.ReactNode }) => {
   return (

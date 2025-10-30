@@ -22,7 +22,7 @@ const eslintConfig = [
   {
     files: ["**/*.ts", "**/*.tsx"],
     rules: {
-      "no-undef": "error",
+      "no-undef": "off",
       "no-console": "warn",
       "sort-imports": "off",
       "padding-line-between-statements": [

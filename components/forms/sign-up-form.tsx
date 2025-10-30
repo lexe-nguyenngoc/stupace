@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import ROUTES from "@/constants/routes";
+import { ROUTES } from "@/lib/constants";
 import { signUpSchema } from "@/lib/validation";
 
 type Form = z.infer<typeof signUpSchema>;
