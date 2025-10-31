@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -20,23 +19,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constants";
 import { authService } from "@/lib/services";
+import { signInWithCredentials } from "@/lib/services/auth";
 import { authSchemas } from "@/lib/validators";
+import { SignUpVerify } from "@/lib/validators/auth.validator";
 
-import type { SignUp } from "@/lib/validators/auth.validator";
-
-const SignUpForm = () => {
-  const form = useForm<SignUp>({
-    resolver: zodResolver(authSchemas.signUp),
-    defaultValues: { email: "", agree: false },
+const SignUpVerifyForm = () => {
+  const form = useForm<SignUpVerify>({
+    resolver: zodResolver(authSchemas.signUpVerify),
+    defaultValues: { key: "", name: "", username: "", password: "" },
   });
   const navigate = useRouter();
 
-  const handleSubmit = async (data: SignUp) => {
-    const response = await authService.signUp(data);
+  const handleSubmit = async (data: SignUpVerify) => {
+    const response = await authService.signUpVerify(data);
 
     if (response.success) {
-      toast.success("Check your email to verify your account");
-      navigate.push(ROUTES.signUpVerify);
+      toast.success("Your account has been created successfully.");
+      await signInWithCredentials(response.data.email, data.password);
+      navigate.push(ROUTES.home);
       return;
     }
 
@@ -48,12 +48,12 @@ const SignUpForm = () => {
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="email"
+          name="key"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Key</FormLabel>
               <FormControl>
-                <Input placeholder="Your email" className="" {...field} />
+                <Input placeholder="Key" className="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -62,21 +62,41 @@ const SignUpForm = () => {
 
         <FormField
           control={form.control}
-          name="agree"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormItem className="flex flex-row items-center gap-2">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    className="cursor-pointer"
-                  />
-                </FormControl>
-                <FormLabel className="text-sm font-normal">
-                  I agree with the Terms of Service and Privacy Policy.
-                </FormLabel>
-              </FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Your username" className="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Your name" className="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder="Your password" type="password" className="" {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -92,7 +112,7 @@ const SignUpForm = () => {
           type="submit"
         >
           {form.formState.isSubmitting && <Loader className="animate-spin" />}
-          <span>Send</span>
+          <span>Verify</span>
         </Button>
 
         <p className="text-right text-sm">
@@ -107,4 +127,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUpVerifyForm;

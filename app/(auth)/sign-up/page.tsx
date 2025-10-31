@@ -3,7 +3,7 @@ import React from "react";
 import SignUpForm from "@/components/forms/sign-up-form";
 import SocialsSignIn from "@/components/socials-sign-in";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-20">
       <div className="mb-10 text-center">
@@ -26,4 +26,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

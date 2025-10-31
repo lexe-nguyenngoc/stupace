@@ -10,4 +10,4 @@ export const APP_FAVICON = "/favicon.ico";
 export const APP_THEME_COLOR = "#ffffff";
 export const APP_DEFAULT_LOCALE = "en-US";
 export const APP_SUPPORTED_LOCALES = ["en-US", "fr-FR", "es-ES"];
-export const APP_API_URL = "https://api.stupace.com";
+export const APP_API_URL = "http://localhost:3001/api";

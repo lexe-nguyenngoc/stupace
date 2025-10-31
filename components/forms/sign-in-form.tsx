@@ -4,19 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constants";
-import { signInSchema } from "@/lib/validation";
+import { authSchemas } from "@/lib/validators";
 
-type Form = z.infer<typeof signInSchema>;
+import type { SignIn } from "@/lib/validators/auth.validator";
 
 const SignInForm = () => {
-  const form = useForm<Form>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<SignIn>({
+    resolver: zodResolver(authSchemas.signIn),
     defaultValues: { email: "", password: "" },
   });
 
