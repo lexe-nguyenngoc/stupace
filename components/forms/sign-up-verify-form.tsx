@@ -19,7 +19,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/lib/constants";
 import { authService } from "@/lib/services";
-import { signInWithCredentials } from "@/lib/services/auth";
 import { authSchemas } from "@/lib/validators";
 import { SignUpVerify } from "@/lib/validators/auth.validator";
 
@@ -35,7 +34,6 @@ const SignUpVerifyForm = () => {
 
     if (response.success) {
       toast.success("Your account has been created successfully.");
-      await signInWithCredentials(response.data.email, data.password);
       navigate.push(ROUTES.home);
       return;
     }
