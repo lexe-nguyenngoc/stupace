@@ -31,11 +31,10 @@ const SignInForm = () => {
   const router = useRouter();
 
   const handleSubmit = async (data: SignIn) => {
-    const response = await authService.signIn(data);
+    const response = await authService.signInWithCredentials(data);
 
     if (response.success) {
       toast.success("Sign in successfully!");
-
       router.push(ROUTES.home);
       return;
     }

@@ -22,21 +22,7 @@ export const signUpVerify = async (
   return response;
 };
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-  role: string;
-}
-
-interface SignInResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: User;
-}
-
-export const signIn = async (requestPayload: SignIn) => {
+export const signInWithCredentials = async (requestPayload: SignIn) => {
   const response = await fetchHandler<SignInResponse>("/auth/sign-in", {
     method: "POST",
     requestPayload,
@@ -47,19 +33,11 @@ export const signIn = async (requestPayload: SignIn) => {
 
     cookieStore.set("access_token", response.data.accessToken, { secure: true, httpOnly: true });
     cookieStore.set("refresh_token", response.data.refreshToken, { secure: true, httpOnly: true });
+    cookieStore.set("session", Buffer.from(JSON.stringify(response.data.data)).toString("base64"), {
+      secure: true,
+      httpOnly: true,
+    });
   }
-
-  return response;
-};
-
-export const signInWithCredentials = async (requestPayload: SignIn) => {
-  const response = await fetchHandler<{
-    id: string;
-    name: string;
-    email: string;
-    username: string;
-    role: string;
-  }>("/auth/sign-in", { method: "POST", requestPayload });
 
   return response;
 };

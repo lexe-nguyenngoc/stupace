@@ -11,3 +11,18 @@ interface SuccessResponse<T> {
 }
 
 type ApiResponse<T = unknown> = ErrorResponse | SuccessResponse<T>;
+
+interface SessionUser {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  role: string;
+}
+
+interface SignInResponse {
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: number;
+  data: SessionUser;
+}
