@@ -1,9 +1,9 @@
 "use server";
 
-import fetchHandler from "../fetch";
+import ssrFetch from "../ssrFetch";
 
-export const getAllUsers = async (): Promise<ApiResponse<{ email: string }>> => {
-  const response = await fetchHandler<{ email: string }>("/users", { method: "GET" });
+export const getAllUsers = async () => {
+  const response = await ssrFetch<{ email: string }>("/users", { method: "GET" });
 
   return response;
 };

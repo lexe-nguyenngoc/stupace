@@ -4,4 +4,5 @@ export const ROUTES = {
   signIn: "/sign-in",
   signUp: "/sign-up",
   signUpVerify: "sign-up/verify",
+  refreshToken: "/api/auth/refresh-token",
 };

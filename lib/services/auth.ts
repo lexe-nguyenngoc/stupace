@@ -29,15 +29,45 @@ export const signInWithCredentials = async (requestPayload: SignIn) => {
   });
 
   if (response.success) {
-    const cookieStore = await cookies();
+    await updateTokensToCookie(response.data);
+  }
 
-    cookieStore.set("access_token", response.data.accessToken, { secure: true, httpOnly: true });
-    cookieStore.set("refresh_token", response.data.refreshToken, { secure: true, httpOnly: true });
-    cookieStore.set("session", Buffer.from(JSON.stringify(response.data.data)).toString("base64"), {
+  return response;
+};
+
+export const updateTokensToCookie = async (data: {
+  accessToken: string;
+  refreshToken: string;
+  sessionUser?: SessionUser;
+}) => {
+  const cookieStore = await cookies();
+  const { accessToken, refreshToken, sessionUser } = data;
+
+  cookieStore.set("access_token", accessToken, { secure: true, httpOnly: true });
+  cookieStore.set("refresh_token", refreshToken, { secure: true, httpOnly: true });
+
+  if (sessionUser) {
+    cookieStore.set("session", Buffer.from(JSON.stringify(sessionUser)).toString("base64"), {
       secure: true,
       httpOnly: true,
     });
   }
+};
 
-  return response;
+type RefreshTokenReturn = Promise<ApiResponse<{ accessToken: string; refreshToken: string }>>;
+
+export const refreshToken = async (): RefreshTokenReturn => {
+  const refreshResponse = await fetchHandler<{ accessToken: string; refreshToken: string }>(
+    "/auth/refresh-token",
+    {
+      method: "POST",
+      retryOnUnauthorized: false,
+    },
+  );
+
+  if (refreshResponse.success) {
+    await updateTokensToCookie(refreshResponse.data);
+  }
+
+  return refreshResponse;
 };
